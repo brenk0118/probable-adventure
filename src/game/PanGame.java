@@ -15,7 +15,7 @@ import java.util.Set;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class GamePanel extends JPanel implements ActionListener, KeyListener{
+public class PanGame extends JPanel implements ActionListener, KeyListener{
     final int UPDATE_DELAY = 5; //16.66... results in 60fps
     final int PLAYER_SIZE = 20;
     final int ENEMY_SIZE = 10;
@@ -24,11 +24,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
     List<Enemy> alEnemies; //List of enemies
     Set<Integer> setKeys; //Set of key codes which are pressed
     
-    int nGameWidth, nGameHeight;
+    int nWidth, nHeight;
     
-    GamePanel(int nWidth, int nHeight){
-        nGameWidth = nWidth;
-        nGameHeight = nHeight;
+    PanGame(int nGameWidth, int nGameHeight){
+        nWidth = nGameWidth;
+        nHeight = nGameHeight;
         
         player = new Player(0, 0, new Color(240, 240, 240), this);
         alEnemies = new ArrayList<>();
@@ -52,7 +52,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
     @Override public void paintComponent(Graphics g){
         Graphics2D g2D = (Graphics2D)g;
         g2D.setColor(Color.black);
-        g2D.fillRect(0, 0, nGameWidth, nGameHeight);
+        g2D.fillRect(0, 0, nWidth, nHeight);
         
         player.draw(g2D);
         for(Enemy enemy : alEnemies) enemy.draw(g2D);
@@ -60,6 +60,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
     
     @Override public void keyPressed(KeyEvent e){ setKeys.add(e.getKeyCode()); }
     @Override public void keyReleased(KeyEvent e){ setKeys.remove(new Integer(e.getKeyCode())); }
-    //Make this an object or else it will think it's an index     ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+    //Make this an object or else it defaults to index            ^~~~~~~~~~~~~~~~~~~~~~~~~~~
     @Override public void keyTyped(KeyEvent e){}
 }

@@ -2,11 +2,11 @@ package game;
 
 import javax.swing.JFrame;
 
-public class LauncherFrame extends JFrame{
-    LauncherPanel panel;
+public class FraLauncher extends JFrame{
+    PanLauncher panel;
     
-    LauncherFrame(){
-        panel = new LauncherPanel();
+    FraLauncher(){
+        panel = new PanLauncher();
         
         super.add(panel);
         super.setTitle("Launcher");

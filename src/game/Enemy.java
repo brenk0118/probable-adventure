@@ -4,9 +4,10 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 public class Enemy{
-    private int nX, nY,
-                nW, nH,
-                nVelX, nVelY;
+    private int
+        nX, nY,
+        nW, nH,
+        nVelX, nVelY;
     
     Enemy(){
         nX = 0;

@@ -8,30 +8,30 @@ public class Player{
     private int nX, nY,
                 nVelX, nVelY;
     Color color;
-    GamePanel panel;
+    PanGame panGame;
     
-    Player(int _x, int _y, Color _color, GamePanel _panel){
+    Player(int _x, int _y, Color _color, PanGame _panGame){
         nX = _x;
         nY = _y;
         color = _color;
         nVelX = nVelY = 0;
-        panel = _panel; //Reference to panel with player
+        panGame = _panGame; //Reference to game panel for key checking
     }
     
     public void update(){
         nVelX = nVelY = 0;
-        if(panel.setKeys.contains(KeyEvent.VK_W)) nVelY--;
-        if(panel.setKeys.contains(KeyEvent.VK_S)) nVelY++;
-        if(panel.setKeys.contains(KeyEvent.VK_A)) nVelX--;
-        if(panel.setKeys.contains(KeyEvent.VK_D)) nVelX++;
+        if(panGame.setKeys.contains(KeyEvent.VK_W)) nVelY--;
+        if(panGame.setKeys.contains(KeyEvent.VK_S)) nVelY++;
+        if(panGame.setKeys.contains(KeyEvent.VK_A)) nVelX--;
+        if(panGame.setKeys.contains(KeyEvent.VK_D)) nVelX++;
         
         nX += nVelX;
         nY += nVelY;
         
         if(nX < 0) nX = 0;
-        else if(nX > panel.nGameWidth) nX = panel.nGameWidth;
+        else if(nX > panGame.nWidth) nX = panGame.nWidth;
         if(nY < 0) nY = 0;
-        else if(nY > panel.nGameHeight) nY = panel.nGameHeight;
+        else if(nY > panGame.nHeight) nY = panGame.nHeight;
     }
     
     public void draw(Graphics2D g2D){

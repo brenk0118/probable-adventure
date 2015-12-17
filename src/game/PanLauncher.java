@@ -9,11 +9,11 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-public class LauncherPanel extends JPanel{
+public class PanLauncher extends JPanel{
     JTextArea txtUpdates;
     JButton  btnLaunch;
     
-    LauncherPanel(){
+    PanLauncher(){
         //Update notes
         txtUpdates = new JTextArea();
         txtUpdates.setColumns(40);
@@ -52,8 +52,7 @@ public class LauncherPanel extends JPanel{
     
     class LaunchListener implements ActionListener{
         @Override public void actionPerformed(ActionEvent event){
-            Main.gameFrame = new GameFrame(/* Game parameters here */);
-            Main.launcherFrame.dispose(); //Kill launcher after starting game
+            Main.startGame(); //Kill launcher frame and start game
         }
     }
 }

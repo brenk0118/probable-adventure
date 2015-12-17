@@ -3,20 +3,17 @@ package game;
 import java.awt.Dimension;
 import javax.swing.JFrame;
 
-public class GameFrame extends JFrame{
-    GamePanel panel = null;
+public class FraGame extends JFrame{
+    PanGame panGame = null;
     
-    GameFrame(){
+    FraGame(){
         //Figure out optimal resolution
         Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        int nGameWidth, nGameHeight;
+        int nGameWidth = (int)Math.round(screenSize.height * 0.9);
+        int nGameHeight = (int)Math.round(nGameWidth / 1.777);
+        panGame = new PanGame(nGameWidth, nGameHeight);
         
-        //Width is 90% width of screen, forced to 16x9
-        nGameWidth = (int)Math.round(screenSize.height * 0.9);
-        nGameHeight = (int)Math.round(nGameWidth / 1.777);
-        panel = new GamePanel(nGameWidth, nGameHeight);
-        
-        super.add(panel);
+        super.add(panGame);
         super.setTitle("Game");
         super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         super.setResizable(false);

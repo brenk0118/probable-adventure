@@ -1,13 +1,16 @@
 package game;
 
 public class Main{
-    static LauncherFrame launcherFrame = null;
-    static GameFrame gameFrame = null;
+    static FraLauncher fraLauncher = null;
+    static FraGame fraGame = null;
     
     public static void main(String[] args){
-        launcherFrame = new LauncherFrame(); //Start the launcher
-        
-        //gameFrame is instantiated from the launcherFrame -> launcherPanel
-        //after the launch button is pressed.
+        fraLauncher = new FraLauncher(); //Start the launcher
+        //Launcher frame will call startGame when the launch button is pressed
+    }
+    
+    public static void startGame(){
+        fraLauncher.dispose();    //Kill launcher
+        fraGame = new FraGame();  //Start game
     }
 }
