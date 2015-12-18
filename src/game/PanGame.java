@@ -23,6 +23,7 @@ public class PanGame extends JPanel implements ActionListener, KeyListener{
     Player player;
     List<Enemy> alEnemies; //List of enemies
     Set<Integer> setKeys; //Set of key codes which are pressed
+    boolean[] arbMouseButtons;
     
     int nWidth, nHeight;
     
@@ -50,12 +51,16 @@ public class PanGame extends JPanel implements ActionListener, KeyListener{
     }
     
     @Override public void paintComponent(Graphics g){
+        if(!(g instanceof Graphics2D)) return;
         Graphics2D g2D = (Graphics2D)g;
         g2D.setColor(Color.black);
         g2D.fillRect(0, 0, nWidth, nHeight);
         
         player.draw(g2D);
         for(Enemy enemy : alEnemies) enemy.draw(g2D);
+        
+        //Debug
+        g2D.drawString("Player Bullets: "+player.alBullets.size(), 0, 10);
     }
     
     @Override public void keyPressed(KeyEvent e){ setKeys.add(e.getKeyCode()); }

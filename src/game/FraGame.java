@@ -9,7 +9,7 @@ public class FraGame extends JFrame{
     FraGame(){
         //Figure out optimal resolution
         Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        int nGameWidth = (int)Math.round(screenSize.height * 0.9);
+        int nGameWidth = (int)Math.round(screenSize.height * 0.95);
         int nGameHeight = (int)Math.round(nGameWidth / 1.777);
         panGame = new PanGame(nGameWidth, nGameHeight);
         

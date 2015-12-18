@@ -31,6 +31,7 @@ public class PanLauncher extends JPanel{
         super.setBorder(new EmptyBorder(6, 6, 6, 6));
         super.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets.bottom = 6; //Add margin between components
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = GridBagConstraints.REMAINDER;
@@ -41,8 +42,9 @@ public class PanLauncher extends JPanel{
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         
-        //Checkboxes for options
+        //TODO: Settings
         
+        gbc.insets.bottom = 0; //Reset bottom margin for final component
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.gridwidth = GridBagConstraints.REMAINDER;
