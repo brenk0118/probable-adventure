@@ -56,7 +56,7 @@ public class PanGame extends JPanel implements ActionListener, KeyListener{
         g2D.setColor(Color.black);
         g2D.fillRect(0, 0, nWidth, nHeight);
         
-        player.draw(g2D);
+        player.draw(g2D); //Draw player and bullets belonging to player
         for(Enemy enemy : alEnemies) enemy.draw(g2D);
         
         //Debug

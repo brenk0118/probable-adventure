@@ -61,10 +61,12 @@ public class Player{
         } else nBulletDelay--;
         
         //Player bullet updating
+        int i = 0; //Current index
         for(Bullet bullet : alBullets){
             bullet.update();
             if(bullet.nX < -BULLET_SIZE
-            || bullet.nY < -BULLET_SIZE) alBullets.remove(bullet);
+            || bullet.nY < -BULLET_SIZE) alBullets.remove(i);
+            i++;
         }
     }
     
