@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class Player{
@@ -16,9 +17,9 @@ public class Player{
     private final int BULLET_DELAY = 20;
     private final int BULLET_SPEED = 2;
     
-    Color color;
-    PanGame panGame;
-    List<Bullet> alBullets;
+    Color color = null;
+    PanGame panGame = null;
+    List<Bullet> alBullets = null;
     
     Player(int _nX, int _nY, Color _color, PanGame _panGame){
         nX = _nX;
@@ -61,12 +62,17 @@ public class Player{
         } else nBulletDelay--;
         
         //Player bullet updating
-        int i = 0; //Current index
-        for(Bullet bullet : alBullets){
-            bullet.update();
+        Iterator<Bullet> itBullets = alBullets.iterator();
+        while(itBullets.hasNext()){
+            Bullet bullet = itBullets.next();
             if(bullet.nX < -BULLET_SIZE
-            || bullet.nY < -BULLET_SIZE) alBullets.remove(i);
-            i++;
+            || bullet.nY < -BULLET_SIZE
+            || bullet.nX + BULLET_SIZE > panGame.getWidth()
+            || bullet.nY + BULLET_SIZE > panGame.getHeight()){
+                itBullets.remove();
+            } else {
+                bullet.update();
+            }
         }
     }
     
