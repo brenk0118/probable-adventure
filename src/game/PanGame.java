@@ -20,9 +20,9 @@ public class PanGame extends JPanel implements ActionListener, KeyListener{
     final int PLAYER_SIZE = 20;
     final int ENEMY_SIZE = 10;
     
-    Player player;
-    List<Enemy> alEnemies; //List of enemies
-    Set<Integer> setKeys; //Set of key codes which are pressed
+    Player player = null;
+    List<Enemy> alEnemies = null; //List of enemies
+    Set<Integer> setKeys = null; //Set of key codes which are pressed
     boolean[] arbMouseButtons;
     
     int nWidth, nHeight;
