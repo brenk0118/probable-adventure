@@ -1,31 +1,30 @@
 package game;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import static game.Globals.PLAYER_SIZE;
+import static game.Globals.PLAYER_COLOR;
+import static game.Globals.PLAYER_SPEED;
+import static game.Globals.BULLET_COLOR;
+import static game.Globals.BULLET_DELAY;
+import static game.Globals.BULLET_SIZE;
+import static game.Globals.BULLET_SPEED;
+
 public class Player{
     private int nX, nY,
-                nW, nH,
                 nBulletDelay;
     
-    private final int PLAYER_SIZE = 20;
-    private final int BULLET_SIZE = 4;
-    private final int BULLET_DELAY = 20;
-    private final int BULLET_SPEED = 2;
+    PanGame panGame = null; //Reference to parent panel
+    List<Bullet> alBullets = null; //Player bullets
     
-    Color color = null;
-    PanGame panGame = null;
-    List<Bullet> alBullets = null;
-    
-    Player(int _nX, int _nY, Color _color, PanGame _panGame){
+    Player(int _nX, int _nY, PanGame _panGame){
         nX = _nX;
         nY = _nY;
-        color = _color;
-        panGame = _panGame; //Reference to game panel for key checking
+        panGame = _panGame;
         
         alBullets = new ArrayList<>();
     }
@@ -38,8 +37,8 @@ public class Player{
         if(panGame.setKeys.contains(KeyEvent.VK_S)) nDY++;
         if(panGame.setKeys.contains(KeyEvent.VK_A)) nDX--;
         if(panGame.setKeys.contains(KeyEvent.VK_D)) nDX++;
-        nX += nDX;
-        nY += nDY;
+        nX += nDX * PLAYER_SPEED;
+        nY += nDY * PLAYER_SPEED;
         
         //Movement bounds checking
         if(nX < 0) nX = 0;
@@ -77,7 +76,7 @@ public class Player{
     }
     
     public void draw(Graphics2D g2D){
-        g2D.setColor(color);
+        g2D.setColor(PLAYER_COLOR);
         g2D.fillRect(nX, nY, PLAYER_SIZE, PLAYER_SIZE);
         for(Bullet bullet : alBullets) bullet.draw(g2D);
     }
@@ -98,6 +97,7 @@ public class Player{
         }
         
         public void draw(Graphics2D g2D){
+            g2D.setColor(BULLET_COLOR);
             g2D.fillRect(nX - BULLET_SIZE / 2, nY - BULLET_SIZE / 2, BULLET_SIZE, BULLET_SIZE);
         }
     }

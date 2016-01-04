@@ -15,6 +15,9 @@ import java.util.Set;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import static game.Globals.DEBUG;
+import static game.Globals.DEBUG_COLOR;
+
 public class PanGame extends JPanel implements ActionListener, KeyListener{
     final int UPDATE_DELAY = 5; //16.66... results in 60fps
     final int PLAYER_SIZE = 20;
@@ -31,7 +34,7 @@ public class PanGame extends JPanel implements ActionListener, KeyListener{
         nWidth = nGameWidth;
         nHeight = nGameHeight;
         
-        player = new Player(0, 0, new Color(240, 240, 240), this);
+        player = new Player(0, 0, this);
         alEnemies = new ArrayList<>();
         setKeys = new HashSet<>();
         
@@ -60,7 +63,10 @@ public class PanGame extends JPanel implements ActionListener, KeyListener{
         for(Enemy enemy : alEnemies) enemy.draw(g2D);
         
         //Debug
-        g2D.drawString("Player Bullets: "+player.alBullets.size(), 0, 10);
+        if(DEBUG){
+            g2D.setColor(DEBUG_COLOR);
+            g2D.drawString("Player Bullets: "+player.alBullets.size(), 0, 10);
+        }
     }
     
     @Override public void keyPressed(KeyEvent e){ setKeys.add(e.getKeyCode()); }
