@@ -48,14 +48,22 @@ public class Player{
         
         //Player bullet spawning
         if(nBulletDelay <= 0){
-            int nVelX = 0,
-                nVelY = 0;
-            if(panGame.setKeys.contains(KeyEvent.VK_UP)) nVelY--;
-            if(panGame.setKeys.contains(KeyEvent.VK_DOWN)) nVelY++;
-            if(panGame.setKeys.contains(KeyEvent.VK_LEFT)) nVelX--;
-            if(panGame.setKeys.contains(KeyEvent.VK_RIGHT)) nVelX++;
-            if(nVelX != 0 || nVelY != 0){
-                alBullets.add(new Bullet(nX + PLAYER_SIZE / 2, nY + PLAYER_SIZE / 2, nVelX, nVelY));
+            int nDirX = 0,
+                nDirY = 0;
+            if(panGame.setKeys.contains(KeyEvent.VK_UP)) nDirY--;
+            if(panGame.setKeys.contains(KeyEvent.VK_DOWN)) nDirY++;
+            if(panGame.setKeys.contains(KeyEvent.VK_LEFT)) nDirX--;
+            if(panGame.setKeys.contains(KeyEvent.VK_RIGHT)) nDirX++;
+            if(nDirX != 0 || nDirY != 0){
+                //Center in player
+                int nStartX = nX + (PLAYER_SIZE / 2);
+                int nStartY = nY + (PLAYER_SIZE / 2);
+                
+                //Move to edge based on shot direction
+                nStartX += nDirX * (PLAYER_SIZE / 2 - BULLET_SIZE);
+                nStartY += nDirY * (PLAYER_SIZE / 2 - BULLET_SIZE);
+                
+                alBullets.add(new Bullet(nStartX, nStartY, nDirX, nDirY));
                 nBulletDelay = BULLET_DELAY;
             }
         } else nBulletDelay--;
