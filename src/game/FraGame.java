@@ -13,6 +13,8 @@ public class FraGame extends JFrame{
         int nGameHeight = (int)Math.round(nGameWidth / 1.777);
         panGame = new PanGame(nGameWidth, nGameHeight);
         
+        super.setSize(nGameWidth, nGameHeight);
+        
         super.add(panGame);
         super.setTitle("Game");
         super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

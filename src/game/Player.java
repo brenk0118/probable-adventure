@@ -15,8 +15,8 @@ import static game.Globals.BULLET_SIZE;
 import static game.Globals.BULLET_SPEED;
 
 public class Player{
-    private int nX, nY,
-                nBulletDelay;
+    int nX, nY,
+        nBulletDelay;
     
     PanGame panGame = null; //Reference to parent panel
     List<Bullet> alBullets = null; //Player bullets
@@ -42,9 +42,9 @@ public class Player{
         
         //Movement bounds checking
         if(nX < 0) nX = 0;
-        else if(nX > panGame.nWidth) nX = panGame.nWidth;
+        else if(nX > panGame.nWidth - PLAYER_SIZE) nX = panGame.nWidth - PLAYER_SIZE;
         if(nY < 0) nY = 0;
-        else if(nY > panGame.nHeight) nY = panGame.nHeight;
+        else if(nY > panGame.nHeight - PLAYER_SIZE) nY = panGame.nHeight - PLAYER_SIZE;
         
         //Player bullet spawning
         if(nBulletDelay <= 0){
@@ -69,13 +69,12 @@ public class Player{
         } else nBulletDelay--;
         
         //Player bullet updating
-        Iterator<Bullet> itBullets = alBullets.iterator();
-        while(itBullets.hasNext()){
+        for(Iterator<Bullet> itBullets = alBullets.iterator(); itBullets.hasNext(); ){
             Bullet bullet = itBullets.next();
             if(bullet.nX < -BULLET_SIZE
             || bullet.nY < -BULLET_SIZE
-            || bullet.nX + BULLET_SIZE > panGame.getWidth()
-            || bullet.nY + BULLET_SIZE > panGame.getHeight()){
+            || bullet.nX > panGame.nWidth
+            || bullet.nY > panGame.nHeight){
                 itBullets.remove();
             } else {
                 bullet.update();
@@ -83,10 +82,10 @@ public class Player{
         }
     }
     
-    public void draw(Graphics2D g2D){
-        g2D.setColor(PLAYER_COLOR);
-        g2D.fillRect(nX, nY, PLAYER_SIZE, PLAYER_SIZE);
-        for(Bullet bullet : alBullets) bullet.draw(g2D);
+    public void draw(Graphics2D g){
+        g.setColor(PLAYER_COLOR);
+        g.fillRect(nX, nY, PLAYER_SIZE, PLAYER_SIZE);
+        for(Bullet bullet : alBullets) bullet.draw(g);
     }
     
     class Bullet{
@@ -104,9 +103,9 @@ public class Player{
             nY += nVelY;
         }
         
-        public void draw(Graphics2D g2D){
-            g2D.setColor(BULLET_COLOR);
-            g2D.fillRect(nX - BULLET_SIZE / 2, nY - BULLET_SIZE / 2, BULLET_SIZE, BULLET_SIZE);
+        public void draw(Graphics2D g){
+            g.setColor(BULLET_COLOR);
+            g.fillRect(nX - BULLET_SIZE / 2, nY - BULLET_SIZE / 2, BULLET_SIZE, BULLET_SIZE);
         }
     }
 }

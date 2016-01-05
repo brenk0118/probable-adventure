@@ -19,7 +19,7 @@ import static game.Globals.DEBUG;
 import static game.Globals.DEBUG_COLOR;
 
 public class PanGame extends JPanel implements ActionListener, KeyListener{
-    final int UPDATE_DELAY = 5; //16.66... results in 60fps
+    final int UPDATE_DELAY = 5;
     final int PLAYER_SIZE = 20;
     final int ENEMY_SIZE = 10;
     
@@ -28,7 +28,8 @@ public class PanGame extends JPanel implements ActionListener, KeyListener{
     Set<Integer> setKeys = null; //Set of key codes which are pressed
     boolean[] arbMouseButtons;
     
-    int nWidth, nHeight;
+    int nWidth, nHeight; //We won't change this value, we won't have to call
+                         //getwidth and getheight to get dimensions of this panel
     
     PanGame(int nGameWidth, int nGameHeight){
         nWidth = nGameWidth;
@@ -49,7 +50,12 @@ public class PanGame extends JPanel implements ActionListener, KeyListener{
     
     @Override public void actionPerformed(ActionEvent e){
         player.update();
-        for(Enemy enemy : alEnemies) enemy.update();
+        for(Enemy enemy : alEnemies) enemy.update(); //Update enemies
+        
+        if(System.currentTimeMillis() % 1000 == 0){ //Sketchy af lmao
+            alEnemies.add(new Enemy(this));
+        }
+        
         super.repaint(); //Calls paintComponent
     }
     
@@ -65,12 +71,15 @@ public class PanGame extends JPanel implements ActionListener, KeyListener{
         //Debug
         if(DEBUG){
             g2D.setColor(DEBUG_COLOR);
-            g2D.drawString("Player Bullets: "+player.alBullets.size(), 0, 10);
+            g2D.drawString("Player pos: "+player.nX+", "+player.nY, 0, 10);
+            g2D.drawString("Player Bullets: "+player.alBullets.size(), 0, 25);
+            
+            
+            g2D.drawString("Enemies: "+alEnemies.size(), 0, 45);
         }
     }
     
     @Override public void keyPressed(KeyEvent e){ setKeys.add(e.getKeyCode()); }
     @Override public void keyReleased(KeyEvent e){ setKeys.remove(new Integer(e.getKeyCode())); }
-    //Make this an object or else it defaults to index            ^~~~~~~~~~~~~~~~~~~~~~~~~~~
     @Override public void keyTyped(KeyEvent e){}
 }
