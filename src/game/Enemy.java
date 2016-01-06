@@ -8,7 +8,7 @@ import static game.Globals.ENEMY_SPEED;
 
 public class Enemy{
     
-    private double
+    double
         dX,
         dY,
         dAng; //dAng son

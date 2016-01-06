@@ -50,13 +50,21 @@ public class PanGame extends JPanel implements ActionListener, KeyListener{
     
     @Override public void actionPerformed(ActionEvent e){
         player.update();
-        for(Enemy enemy : alEnemies) enemy.update(); //Update enemies
+        for(Enemy enemy : alEnemies){
+            enemy.update();
+//            if(!(                                       //Player      Enemy
+//                player.nX > enemy.dX + ENEMY_SIZE       //Left      > right
+//                || player.nX + PLAYER_SIZE < enemy.dX   //Right     < left
+//                || player.nY > enemy.dY + ENEMY_SIZE    //Top       > bottom
+//                || player.nY + PLAYER_SIZE < enemy.dY   //Bottom    < top
+//               ))
         
-        //if(System.currentTimeMillis() % 100 == 0){ //Sketchy af lmao
-            alEnemies.add(new Enemy(nWidth / 2, nHeight / 2, this));
-        //}
+            //if(System.currentTimeMillis() % 100 == 0){ //Sketchy af lmao
+                alEnemies.add(new Enemy(nWidth / 2, nHeight / 2, this));
+            //}
         
-        super.repaint(); //Calls paintComponent
+            super.repaint(); //Calls paintComponent
+        }
     }
     
     @Override public void paintComponent(Graphics g){
