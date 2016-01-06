@@ -52,9 +52,9 @@ public class PanGame extends JPanel implements ActionListener, KeyListener{
         player.update();
         for(Enemy enemy : alEnemies) enemy.update(); //Update enemies
         
-        if(System.currentTimeMillis() % 1000 == 0){ //Sketchy af lmao
-            alEnemies.add(new Enemy(this));
-        }
+        //if(System.currentTimeMillis() % 100 == 0){ //Sketchy af lmao
+            alEnemies.add(new Enemy(nWidth / 2, nHeight / 2, this));
+        //}
         
         super.repaint(); //Calls paintComponent
     }

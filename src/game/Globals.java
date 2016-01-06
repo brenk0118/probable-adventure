@@ -16,7 +16,7 @@ public class Globals{
     //Player
     final static Color PLAYER_COLOR = new Color(0, 255, 255);
     final static int PLAYER_SIZE = 20;
-    final static int PLAYER_SPEED = 1;
+    final static int PLAYER_SPEED = 2;
         
         //Player bullets
         final static Color BULLET_COLOR = PLAYER_COLOR;
@@ -27,4 +27,5 @@ public class Globals{
     //Enemies
     final static Color ENEMY_COLOR = new Color(255, 255, 0);
     final static int ENEMY_SIZE = 20;
+    final static int ENEMY_SPEED = 1;
 }

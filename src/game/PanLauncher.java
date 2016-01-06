@@ -30,6 +30,11 @@ public class PanLauncher extends JPanel{
         
         super.setBorder(new EmptyBorder(6, 6, 6, 6));
         super.setLayout(new GridBagLayout());
+        
+        //Using grids to make an interface pretty is easier in JavaFX due to the
+        //grid.setHgap and grid.setVgap to add gaps between components.
+        //The problem with it is you have to relinquish more control over all
+        //the elements by doing this.
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets.bottom = 6; //Add margin between components
         gbc.gridx = 0;
