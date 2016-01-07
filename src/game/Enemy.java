@@ -8,10 +8,8 @@ import static game.Globals.ENEMY_SPEED;
 
 public class Enemy{
     
-    double
-        dX,
-        dY,
-        dAng; //dAng son
+    double dX, dY;
+    double dAng; //Angle(radians) that the enemy is rotated
     
     PanGame panGame = null; //Reference to parent panel
     
@@ -27,7 +25,7 @@ public class Enemy{
         double dRealAng = Math.atan2(dY - panGame.player.nY, dX - panGame.player.nX);
         dAng = dRealAng;
         
-        //TODO: Interpolate angles
+        //TODO: Interpolate angle changes
         //double difference = Math.abs(dAng - dRealAng);
         //if(difference > Math.PI){
         //    difference %= Math.PI;
