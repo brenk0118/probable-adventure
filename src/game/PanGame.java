@@ -26,6 +26,7 @@ public class PanGame extends JPanel implements ActionListener, KeyListener{
     Player player = null;
     List<Enemy> alEnemies = null; //List of enemies
     Set<Integer> setKeys = null; //Set of key codes which are pressed
+    Timer timer = null;
     boolean[] arbMouseButtons;
     
     long nGameTick = 0;
@@ -46,7 +47,7 @@ public class PanGame extends JPanel implements ActionListener, KeyListener{
         super.requestFocusInWindow();
         super.addKeyListener(this);
         
-        Timer timer = new Timer(UPDATE_DELAY, this);
+        timer = new Timer(UPDATE_DELAY, this);
         timer.start();
         
     }
@@ -58,19 +59,20 @@ public class PanGame extends JPanel implements ActionListener, KeyListener{
             alEnemies.add(new Enemy(nWidth / 2, nHeight / 2, this));
         }
         
-        for(Iterator<Enemy> itEnemies = alEnemies.iterator(); itEnemies.hasNext(); ){
+        for(Iterator<Enemy> itEnemies = alEnemies.iterator(); itEnemies.hasNext();){
             Enemy enemy = itEnemies.next();
             enemy.update();
             
-            //TODO: Handle player being hit
-//            if(!( //Player is hit by enemy
-//                player.nX > enemy.dX + ENEMY_SIZE       //Too far right
-//                || player.nX + PLAYER_SIZE < enemy.dX   //Too far left
-//                || player.nY > enemy.dY + ENEMY_SIZE    //Too far down
-//                || player.nY + PLAYER_SIZE < enemy.dY   //Too far up
-//            ))
+            if(!( //Player is hit by enemy
+                player.dX > enemy.dX + ENEMY_SIZE       //Too far right
+                || player.dX + PLAYER_SIZE < enemy.dX   //Too far left
+                || player.dY > enemy.dY + ENEMY_SIZE    //Too far down
+                || player.dY + PLAYER_SIZE < enemy.dY   //Too far up
+            )){
+                timer.stop(); //Make-shift game-over
+            }
         
-            for(Iterator<Player.Bullet> itBullets = player.alBullets.iterator(); itBullets.hasNext(); ){
+            for(Iterator<Player.Bullet> itBullets = player.alBullets.iterator(); itBullets.hasNext();){
                 Player.Bullet bullet = itBullets.next();
                 
                 //Rotate bullet x and y 
