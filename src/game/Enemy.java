@@ -26,12 +26,6 @@ public class Enemy{
         dAng = Math.atan2(dY - panGame.player.dY, dX - panGame.player.dX);
         
         //TODO: Interpolate angle changes
-        //double difference = Math.abs(dAng - dRealAng);
-        //if(difference > Math.PI){
-        //    difference %= Math.PI;
-        //}
-        
-        //dAng += difference > 0? 0.017: -0.017;
         
         //Move based on enemy angle
         dX += ENEMY_SPEED * -Math.cos(dAng);
