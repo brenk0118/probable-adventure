@@ -72,12 +72,20 @@ public class PanGame extends JPanel implements ActionListener, KeyListener{
             for(Iterator<Player.Bullet> itBullets = player.alBullets.iterator(); itBullets.hasNext(); ){
                 Player.Bullet bullet = itBullets.next();
                 
-                //TODO: Real rotation hittesting
+                //Rotate bullet x and y around enemy origin
+                double dTheta = enemy.dAng;
+                double dCosTheta = Math.cos(dTheta);
+                double dSinTheta = Math.sin(dTheta);
+                double dXDelta = bullet.dX - enemy.dX;
+                double dYDelta = bullet.dY - enemy.dY;
+                int nRotatedX = (int)(dCosTheta * dXDelta - dSinTheta * dYDelta + enemy.dX);
+                int nRotatedY = (int)(dSinTheta * dXDelta + dCosTheta * dYDelta + enemy.dY);
+                
                 if( //Enemy is hit by bullet
-                  bullet.nX > enemy.dX
-                  && bullet.nX < enemy.dX + ENEMY_SIZE
-                  && bullet.nY > enemy.dY
-                  && bullet.nY < enemy.dY + ENEMY_SIZE
+                  nRotatedX > enemy.dX
+                  && nRotatedX < enemy.dX + ENEMY_SIZE
+                  && nRotatedY > enemy.dY
+                  && nRotatedY < enemy.dY + ENEMY_SIZE
                   ){
                     itEnemies.remove();
                     itBullets.remove();
@@ -102,7 +110,7 @@ public class PanGame extends JPanel implements ActionListener, KeyListener{
         if(DEBUG){
             g2D.setColor(DEBUG_COLOR);
             g2D.drawString("Game Tick: "+nGameTick, 0, 10);
-            g2D.drawString("Player Pos: "+player.nX+", "+player.nY, 0, 25);
+            g2D.drawString("Player Pos: "+player.dX+", "+player.dY, 0, 25);
             g2D.drawString("Player Bullets: "+player.alBullets.size(), 0, 40);
             g2D.drawString("Enemies: "+alEnemies.size(), 0, 55);
         }
