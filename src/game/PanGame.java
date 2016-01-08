@@ -10,6 +10,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import javax.swing.JPanel;
@@ -17,13 +18,11 @@ import javax.swing.Timer;
 
 import static game.Globals.DEBUG;
 import static game.Globals.DEBUG_COLOR;
-import java.util.Iterator;
+import static game.Globals.UPDATE_DELAY;
+import static game.Globals.PLAYER_SIZE;
+import static game.Globals.ENEMY_SIZE;
 
 public class PanGame extends JPanel implements ActionListener, KeyListener{
-    final int UPDATE_DELAY = 10;
-    final int PLAYER_SIZE = 20;
-    final int ENEMY_SIZE = 10;
-    
     Player player = null;
     List<Enemy> alEnemies = null; //List of enemies
     Set<Integer> setKeys = null; //Set of key codes which are pressed
@@ -62,34 +61,36 @@ public class PanGame extends JPanel implements ActionListener, KeyListener{
         for(Iterator<Enemy> itEnemies = alEnemies.iterator(); itEnemies.hasNext(); ){
             Enemy enemy = itEnemies.next();
             enemy.update();
+            
+            //TODO: Handle player being hit
 //            if(!( //Player is hit by enemy
 //                player.nX > enemy.dX + ENEMY_SIZE       //Too far right
 //                || player.nX + PLAYER_SIZE < enemy.dX   //Too far left
 //                || player.nY > enemy.dY + ENEMY_SIZE    //Too far down
 //                || player.nY + PLAYER_SIZE < enemy.dY   //Too far up
-//              ))
+//            ))
         
             for(Iterator<Player.Bullet> itBullets = player.alBullets.iterator(); itBullets.hasNext(); ){
                 Player.Bullet bullet = itBullets.next();
                 
-                //Rotate bullet x and y around enemy origin
-                double dTheta = enemy.dAng;
+                //Rotate bullet x and y 
+                double dTheta = -enemy.dAng; //Rotate oposite direction that enemy would while drawing
                 double dCosTheta = Math.cos(dTheta);
                 double dSinTheta = Math.sin(dTheta);
-                double dXDelta = bullet.dX - enemy.dX;
-                double dYDelta = bullet.dY - enemy.dY;
-                int nRotatedX = (int)(dCosTheta * dXDelta - dSinTheta * dYDelta + enemy.dX);
-                int nRotatedY = (int)(dSinTheta * dXDelta + dCosTheta * dYDelta + enemy.dY);
+                double dDeltaX = bullet.dX - enemy.dX;
+                double dDeltaY = bullet.dY - enemy.dY;
+                double dRotatedX = (dCosTheta * dDeltaX - dSinTheta * dDeltaY + enemy.dX);
+                double dRotatedY = (dSinTheta * dDeltaX + dCosTheta * dDeltaY + enemy.dY);
                 
                 if( //Enemy is hit by bullet
-                  nRotatedX > enemy.dX
-                  && nRotatedX < enemy.dX + ENEMY_SIZE
-                  && nRotatedY > enemy.dY
-                  && nRotatedY < enemy.dY + ENEMY_SIZE
-                  ){
+                  dRotatedX > enemy.dX
+                  && dRotatedX < enemy.dX + ENEMY_SIZE
+                  && dRotatedY > enemy.dY
+                  && dRotatedY < enemy.dY + ENEMY_SIZE
+                ){
                     itEnemies.remove();
                     itBullets.remove();
-                  }
+                }
             }
         }
         

@@ -12,6 +12,7 @@ import java.awt.Color;
 public class Globals{
     final static boolean DEBUG = true;
     final static Color DEBUG_COLOR = new Color(255, 255, 255);
+    final static int UPDATE_DELAY = 10;
     
     //Player
     final static Color PLAYER_COLOR = new Color(0, 255, 255);
