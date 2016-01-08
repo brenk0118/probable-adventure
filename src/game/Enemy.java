@@ -22,8 +22,8 @@ public class Enemy{
     }
     
     void update(){
-        double dRealAng = Math.atan2(dY - panGame.player.nY, dX - panGame.player.nX);
-        dAng = dRealAng;
+        //double dRealAng = 
+        dAng = Math.atan2(dY - panGame.player.dY, dX - panGame.player.dX);
         
         //TODO: Interpolate angle changes
         //double difference = Math.abs(dAng - dRealAng);
